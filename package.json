@@ -1,8 +1,8 @@
 {
   "name": "medium-api",
   "version": "0.0.1",
-  "description": "",
-  "author": "",
+  "description": "Clone of Medium API using NestJS and Prisma",
+  "author": "LeHoi",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {

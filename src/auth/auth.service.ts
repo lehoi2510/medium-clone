@@ -15,7 +15,6 @@ export class AuthService {
 
     async signup(dto: SignupDto) {
         try {
-            console.log('Signup DTO:', dto.email, dto.username, dto.password);
             const hashed = await bcrypt.hash(dto.password, 10);
             const user = await this.prisma.user.create({
                 data: {
@@ -32,12 +31,11 @@ export class AuthService {
                     throw new ConflictException('Email hoặc username đã tồn tại');
                 }
             }
-            throw error;
+            throw new Error(error.message || 'Có lỗi xảy ra, vui lòng thử lại');
         }
     }
 
     async login(dto: LoginDto) {
-        console.log('Login DTO:', dto.email, dto.password);
         try {
             const user = await this.prisma.user.findUnique({
                 where: { email: dto.email },
@@ -54,7 +52,7 @@ export class AuthService {
                     throw new UnauthorizedException('Tài khoản không tồn tại');
                 }
             }
-            throw error;
+            throw new Error('Có lỗi xảy ra, vui lòng thử lại');
         }
     }
 

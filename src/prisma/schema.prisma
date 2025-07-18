@@ -1,9 +1,0 @@
-model User {
-id Int @id @default(autoincrement())
-email String @unique
-password String
-username String
-bio String? @default("")
-image String? @default("")
-createdAt DateTime @default(now())
-}
