@@ -18,6 +18,7 @@ CREATE TABLE `User` (
 CREATE TABLE `Article` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `title` VARCHAR(191) NOT NULL,
+    `slug` VARCHAR(191) NOT NULL,
     `description` VARCHAR(191) NOT NULL,
     `body` VARCHAR(191) NOT NULL,
     `authorId` INTEGER NOT NULL,
