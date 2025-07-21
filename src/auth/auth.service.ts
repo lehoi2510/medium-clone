@@ -58,10 +58,7 @@ export class AuthService {
 
   signToken(userId: number, email: string): { access_token: string } {
     const payload = { sub: userId, email };
-    const token = this.jwt.sign(payload, {
-      secret: 'JWT_SECRET_KEY', // nên đặt trong .env
-      expiresIn: '1d',
-    });
+    const token = this.jwt.sign(payload);
     return { access_token: token };
   }
 }
