@@ -8,6 +8,8 @@ export const ERROR_MESSAGES = {
   WRONG_PASSWORD: 'Wrong password',
   CURRENT_PASSWORD_REQUIRED: 'Please enter current password to change to new password',
   CURRENT_PASSWORD_INVALID: 'Current password is incorrect',
+  COMMENT_NOT_FOUND: 'Comment not found',
+  COMMENT_FORBIDDEN_DELETE: 'You do not have permission to delete this comment',
 } as const;
 
 export const SUCCESS_MESSAGES = {
@@ -18,4 +20,7 @@ export const SUCCESS_MESSAGES = {
   USER_CREATED: 'User created successfully',
   USER_LOGGED_IN: 'User logged in successfully',
   USER_UPDATED: 'User updated successfully',
+  COMMENT_CREATED: 'Comment created successfully',
+  COMMENT_DELETED: 'Comment deleted successfully',
+  COMMENTS_RETRIEVED: 'Comments retrieved successfully',
 } as const;
