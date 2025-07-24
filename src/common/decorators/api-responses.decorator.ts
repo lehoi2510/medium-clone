@@ -69,3 +69,35 @@ export const ArticleOwnerResponses = () =>
     ArticleApiResponses.ArticleForbidden(),
     ArticleApiResponses.ArticleNotFound(),
   );
+
+export const CommentApiResponses = {
+  Success: (type: any) =>
+    ApiResponse({
+      status: HttpStatus.OK,
+      description: 'Operation completed successfully',
+      type,
+    }),
+
+  Created: (type: any) =>
+    ApiResponse({
+      status: HttpStatus.CREATED,
+      description: 'Comment created successfully',
+      type,
+    }),
+
+  CommentNotFound: () => CommonApiResponses.NotFound('Comment'),
+  
+  CommentForbidden: () =>
+    ApiResponse({
+      status: HttpStatus.FORBIDDEN,
+      description: 'Forbidden - Not the author of the comment',
+    }),
+};
+
+export const CommentOwnerResponses = () =>
+  applyDecorators(
+    CommonApiResponses.Unauthorized(),
+    CommentApiResponses.CommentForbidden(),
+    CommentApiResponses.CommentNotFound(),
+    ArticleApiResponses.ArticleNotFound(),
+  );

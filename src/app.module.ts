@@ -5,6 +5,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule } from '@nestjs/config';
 import { PrismaModule } from './prisma/prisma.module';
 import { ArticlesModule } from './articles/articles.module';
+import { CommentsModule } from './comments/comments.module';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { ArticlesModule } from './articles/articles.module';
     ConfigModule.forRoot({ isGlobal: true }),
     PrismaModule,
     ArticlesModule,
+    CommentsModule,
   ],
 })
 export class AppModule {}
