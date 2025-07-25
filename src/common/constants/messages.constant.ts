@@ -10,6 +10,7 @@ export const ERROR_MESSAGES = {
   CURRENT_PASSWORD_INVALID: 'Current password is incorrect',
   COMMENT_NOT_FOUND: 'Comment not found',
   COMMENT_FORBIDDEN_DELETE: 'You do not have permission to delete this comment',
+  CANNOT_FOLLOW_YOURSELF: 'Cannot follow yourself',
 } as const;
 
 export const SUCCESS_MESSAGES = {
@@ -23,4 +24,7 @@ export const SUCCESS_MESSAGES = {
   COMMENT_CREATED: 'Comment created successfully',
   COMMENT_DELETED: 'Comment deleted successfully',
   COMMENTS_RETRIEVED: 'Comments retrieved successfully',
+  USER_FOLLOWED: 'User followed successfully',
+  USER_UNFOLLOWED: 'User unfollowed successfully',
+  PROFILE_RETRIEVED: 'Profile retrieved successfully',
 } as const;
