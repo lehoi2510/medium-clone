@@ -16,9 +16,11 @@ model User {
   image     String?
   articles  Article[]
   comments  Comment[]
-  favorites  Favorite[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  favorites Favorite[]
+  following Follow[] @relation("UserFollowing")
+  followers Follow[] @relation("UserFollowers")
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
 }
 
 model Article {
@@ -27,6 +29,7 @@ model Article {
   slug        String    @unique
   description String
   body        String
+  tagList     String?   @default("")
   authorId    Int
   author      User      @relation(fields: [authorId], references: [id])
   comments    Comment[]
@@ -55,4 +58,15 @@ model Favorite {
   createdAt DateTime @default(now())
 
   @@unique([userId, articleId])
+}
+
+model Follow {
+  id          Int      @id @default(autoincrement())
+  followerId  Int
+  followingId Int
+  follower    User     @relation("UserFollowing", fields: [followerId], references: [id])
+  following   User     @relation("UserFollowers", fields: [followingId], references: [id])
+  createdAt   DateTime @default(now())
+
+  @@unique([followerId, followingId])
 }

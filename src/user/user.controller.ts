@@ -2,11 +2,17 @@ import { Controller, Get, Put, Body, UseGuards, Request, Logger } from '@nestjs/
 import { UserService } from './user.service';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { ApiBearerAuth } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { AuthenticatedRequest } from '../common/interfaces/authenticated-request.interface';
+import { UserResponse } from './interfaces/user.interface';
+import { 
+  CommonApiResponses, 
+  AuthRequiredResponses 
+} from '../common/decorators/api-responses.decorator';
 
+@ApiTags('user')
 @ApiBearerAuth('jwt')
-@Controller('user')
+@Controller('api/user')
 export class UserController {
   private readonly logger = new Logger(UserController.name);
   
@@ -14,15 +20,25 @@ export class UserController {
 
   @UseGuards(JwtAuthGuard)
   @Get()
-  async getCurrentUser(@Request() req: AuthenticatedRequest) {
-    this.logger.log(`Getting current user: ${req.user.id}`);
-    return this.userService.getCurrentUser(req.user.id);
+  @ApiOperation({ summary: 'Get current user' })
+  @ApiResponse({ status: 200, description: 'User retrieved successfully' })
+  @AuthRequiredResponses()
+  async getCurrentUser(@Request() request: AuthenticatedRequest): Promise<UserResponse> {
+    this.logger.log(`Getting current user: ${request.user.id}`);
+    return await this.userService.getCurrentUser(request.user.id);
   }
 
   @UseGuards(JwtAuthGuard)
   @Put()
-  async updateUser(@Request() req: AuthenticatedRequest, @Body() updateUserDto: UpdateUserDto) {
-    this.logger.log(`Updating user: ${req.user.id}`);
-    return this.userService.updateUser(req.user.id, updateUserDto);
+  @ApiOperation({ summary: 'Update current user' })
+  @ApiResponse({ status: 200, description: 'User updated successfully' })
+  @CommonApiResponses.BadRequest()
+  @AuthRequiredResponses()
+  async updateUser(
+    @Request() request: AuthenticatedRequest, 
+    @Body() updateUserData: UpdateUserDto
+  ): Promise<UserResponse> {
+    this.logger.log(`Updating user: ${request.user.id}`);
+    return await this.userService.updateUser(request.user.id, updateUserData);
   }
 }
